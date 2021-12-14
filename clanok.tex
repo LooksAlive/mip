@@ -9,13 +9,18 @@
 \usepackage{graphicx}
 \usepackage{url} % príkaz \url na formátovanie URL
 \usepackage{hyperref} % odkazy v texte budú aktívne (pri niektorých triedach dokumentov spôsobuje posun textu)
+\usepackage{graphicx}
+\usepackage{pdfpages}
+\usepackage{csvsimple}
+\DeclareGraphicsExtensions{.png}
 
 \usepackage{cite}
 %\usepackage{times}
 
+
 \pagestyle{headings}
 
-\title{Najčastejšie chyby pri vývoji softvéru\thanks{Najčastejšie chyby pri vývoji softvéru, ak. rok 2020/21, vedenie: Vladimir Mlynarovic}} % meno a priezvisko vyučujúceho na cvičeniach
+\title{Časté chyby pri vývoji softvéru\thanks{Časté chyby pri vývoji softvéru, ak. rok 2020/21, vedenie: Vladimir Mlynarovic}} % meno a priezvisko vyučujúceho na cvičeniach
 
 \author{Adam Melikant\\[2pt]
 	{\small Slovenská technická univerzita v Bratislave}\\
@@ -23,7 +28,7 @@
 	{\small \texttt{xmelikant@stuba.sk}}
 	}
 
-\date{\small 5. November 2021} % upravte
+\date{\small 14. December 2021} % upravte
 
 
 
@@ -33,14 +38,28 @@
 
 \begin{abstract}
 V tomto článku sa budeme zaoberať najčastejšími chybami, ktoré môžu nastať pri komplexnom vývoji akéhokoľvek typu softvéru. Celý tento vývoj rozdelíme na jednotlivé celky popisujúce postupy vývoja softvéru. Tieto celky podrobne rozoberieme a poukážeme na jednotlivé nedostatky, ktoré následne môžu spôsobovať závažné problémy v praxi. Začneme od začiatku: Plánovanie potrebných informácií, zdrojov, cielený účel softvéru, rozšírenia atď. Následne rozoberieme štruktúru softvéru, chyby pri navrhovaní, programovaní či celkovej štruktúre, návrhu a funkcionalite. Dostatočne vysvetlíme zaužívané postupy, ktoré vedú k najčastejším chybám a aj to ako sa im efektívne vyhnúť prípadne čo najrýchlejšie opraviť aby sa následne zamedzilo kaskádovému vzniku ďalších problémov. Po úspešnom dokončení softvéru poukážeme na chyby v distribúcií a rôznych iných aplikáciách, ktoré sú častým nedostatkom hlavne z hľadiska dosiahnutia čo najväčšieho dopytu.
-
-Každý plán vývoja softvéru je navrhnutý s ohľadom na finančné a časové obmedzenia dostupné pre zainteresované strany. Pravidelný výskyt chýb však môže viesť k zbytočným prieťahom v pláne. To môže spôsobiť nadmerné finančné zaťaženie a v najhoršom prípade odmietnutie produktu. Preto si vývojový tím musí byť vedomý bežných chýb, ktoré sa môžu počas procesu stať. Tu uvádzame niektoré bežné chyby, ktorým je potrebné sa vyhnúť, aby mohol pokračovať správny životný cyklus vývoja softvéru.
 \end{abstract}
 
 
+\section{Úvod}
+Každý plán vývoja softvéru je navrhnutý s ohľadom na finančné a časové obmedzenia dostupné pre zainteresované strany. Pravidelný výskyt chýb však môže viesť k zbytočným prieťahom v pláne. To môže spôsobiť nadmerné finančné zaťaženie a v najhoršom prípade odmietnutie produktu. Preto si vývojový tím musí byť vedomý bežných chýb, ktoré sa môžu počas procesu stať. Tu uvádzame niektoré bežné chyby, ktorým je potrebné sa vyhnúť, aby mohol pokračovať správny životný cyklus vývoja softvéru.% Opíšeme všetky fázy cyklu softvéru a zdôrazníme časté chyby, ktoré sa tam často vyskytujú.  
+Diagram \ref{fig:D1} opisuje životný cyklus sú vyzačené fázy, v ktorých sa najčastejšie vyskytujú chyby.
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.35]{vyvoj_diagram.png}
+    \caption{Životný cyklus softvéru.}
+    \label{fig:D1}
+\end{figure}
 
+\pagebreak
+Graf \ref{fig:D2} znázorňuje precentuálny výskyt chýb v rôznych fázach vývoja softvéru.
 
-
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.35]{priciny_chyb.jpg}
+    \caption{Príčiny vzniku chýb pri vývoji softvéru, prevzaté zo zdroja \cite{VyvojProces}.}
+    \label{fig:D2}
+\end{figure}
 
 
 \section{Počiatočný prieskum}
@@ -51,11 +70,15 @@ Rozhodovanie o nákladových faktoroch je zároveň dôležitým faktorom život
 \subsection{Nepochopenie požiadaviek a ich neoverenie}
 
 Účelom vytvorenia dokumentu so špecifikáciami softvéru v počiatočnej fáze je neustále kontrolovať proces a výstupy v porovnaní s tým, čo sa očakáva na strane používateľa. Počas vývoja softvéru na zákazku sú požiadavky jedinečné a špecifikované, a preto je dôležité dodržiavať tieto požiadavky. Niektorí vývojári, ktorí v tejto oblasti nemajú veľa skúseností, tento krok v niektorých fázach vynechajú. Umožňuje, aby sa chyby dostali aj k druhej časti a následne aj zvýšili náklady podnikov. Požiadavky by sa preto mali v každej fáze dôkladne pochopiť a overiť so zainteresovanými stranami a koncovými používateľmi.
-
-
-
-
-
+\\
+\\
+Typy požiadaviek:
+\begin{itemize}
+\item Požiadavky na prevádzku systému (počet používateľov, ...)
+\item Požiadavky na softvér (efektívnosť, bezpečnosť, hardvérové prostredie, OS, iný spolupracujúci SW)
+\item Externé požiadavky (legislatívne, etické požiadavky)
+\end{itemize}
+\cite{VyvojProces}
 
 
 
@@ -81,20 +104,13 @@ S vedením by sa mali riadne konzultovať konečné ciele produktu, aby sa vybra
 
 
 
-
-
-
-
-
-
-
 \section{Plánovanie procesu}
 Kým je fáza výskumu dokončená a potrebné máme potrebé zdroje , ďalším krokom je plánovanie, kde delegovanie povinností vykonáva vývojový tím. Softvér sa môže líšiť v rôznych metrikách, ako je frontend a backend, a preto musia byť funkcie v súlade so zručnosťami, ktoré majú vývojári k dispozícii. V tejto fáze je tiež potrebné rozhodnúť o pracovnom modeli životného cyklu vývoja softvéru.
 
-Kvalita a zručnosť vývoja je najdôležitejším pilierom, na ktorom projekt stojí.Často sa stáva, že organizácie majú tendenciu najímať neskúsených začiatočníkov, ktorí môžu v nepriaznivých situáciách ľahko zlyhať.
+Kvalita a zručnosť vývoja je najdôležitejším pilierom, na ktorom projekt stojí. Často sa stáva, že organizácie majú tendenciu najímať neskúsených začiatočníkov, ktorí môžu v nepriaznivých situáciách ľahko zlyhať.
 Ak máte po boku skúsených vývojárov, môžete organizácii jednoducho pomôcť ušetriť finančné zdroje a čas. Najímanie skúsených vývojárov softvéru môže vyzerať ako nadmerné náklady, aj keď v skutočnosti poskytuje oveľa vyššiu návratnosť investícií ako zamestnávanie začiatočníkov.
 
-Plán je ako cesta pre vývojárov. Funguje ako sprievodca, keď je veľkosť projektu veľká. Plánovanie nám umožňuje pracovať špecifikovaným spôsobom a dosiahnuť cieľ v rámci časovej osi. Správne testovanie v rôznych časoch je tiež dobrý spôsob, ako sa uistiť, či je tím pripravený alebo nie v prípade veľkého vývojového projektu.
+%Plán je ako cesta pre vývojárov. Funguje ako sprievodca, keď je veľkosť projektu veľká. Plánovanie nám umožňuje pracovať špecifikovaným spôsobom a dosiahnuť cieľ v rámci časovej osi. Správne testovanie v rôznych časoch je tiež dobrý spôsob, ako sa uistiť, či je tím pripravený alebo nie v prípade veľkého vývojového projektu.
 
 Je tiež rozumné vopred rozhodnúť, že na konci každej etapy sa umiestnia náležité kontrolné opatrenia. Príliš prísny plán však môže viesť k výpadkom a problémom v budúcnosti. Preto musia byť plány dostatočne flexibilné na to, aby začlenili nové zmeny.
 
@@ -127,7 +143,7 @@ Architektúra programu je štruktúra, ktorá definuje vzťah medzi rôznymi prv
 \item IT prostredie
 \end{itemize}
 
-
+Fáza návrhu definuje fungovanie softvérovej aplikácie. V tejto fáze práce tím robí rozhodnutia o návrhu softvéru o architektúre a mení softvér na riešenie. Táto fáza zahŕňa tvorbu návrhových dokumentov, programovacích pokynov, diskusiu o nástrojoch, postupoch, časoch spustenia a rámcov, ktoré tímu pomôžu splniť požiadavky na softvér, špecifikácie a ciele definované vo fáze práce.\cite{VyvojProces3}
 
 
 
@@ -152,7 +168,15 @@ Navyše, ak kódu neposkytnete správnu štruktúru, vyzerá to chaoticky. Čist
 
 
 \section{Vývojový proces}
-Fáza vývoja je aktuálna fáza, v ktorej sa realizujú všetky plány podľa ich požiadaviek na zdroje. Vývojová fáza si vyžaduje intenzívne testovanie jednotiek v každej fáze, aby sa zabezpečilo, že akákoľvek chyba alebo chyba bude zachytená už na začiatku. Okrem toho sa najväčšia pozornosť venuje komunikácii medzi rôznymi oddeleniami tímu vývoja softvéru, ako aj zainteresovanými stranami.
+Proces vývoja softvéru je množina aktivít, ktorých koneným výsledkom je softvérový
+produkt. V každej organizácii je tento proces iný. V každej „píšu softvér“ trochu iným
+spôsobom. Rozdiely môžu by napríklad v intenzite dokumentovania alebo v intenzite
+testovania.
+V každom prípade však vývoj softvéru prechádza vždy viac-menej rovnakými etapami:
+analýza a špecifikácia požiadaviek, návrh, implementácia a testovanie, integrácia, údržba.
+Vývoj je podporovaný aktivitami, ako sú: riadenie projektu, zabezpeovanie kvality, správa
+konfigurácií a riadenie zmien.\cite{VyvojProces3}
+Vývojová fáza si vyžaduje intenzívne testovanie jednotiek v každej fáze, aby sa zabezpečilo, že akákoľvek chyba alebo chyba bude zachytená už na začiatku. Okrem toho sa najväčšia pozornosť venuje komunikácii medzi rôznymi oddeleniami tímu vývoja softvéru, ako aj zainteresovanými stranami.
 
 \subsection{Komunikácia nie je jasná}
 Komunikačný kanál v projekte vývoja softvéru možno rozdeliť na dve časti, a to vnútrotímovú a medzitímovú komunikáciu. Oba tieto kanály by sa mali efektívne využívať, aby sa predišlo akýmkoľvek nejasnostiam. Ak to neurobíte, môže to viesť k narušeniu rýchlosti projektu, čo môže mať za následok nadmerné náklady.
@@ -180,35 +204,47 @@ Preskočenie alebo unáhlenie procesu testovania je teda z dlhodobého hľadiska
 
 \section{Programatorské chyby}
 Programátorská chyba je druh softvérovej chyby, ktorú urobil programátor pri vytváraní počítačového programu. Programátorskú chybu, ktorá v softvéri spôsobí bezpečnostný problém, označujeme ako zraniteľnosť. Program využívajúci zraniteľnosť je exploit. V realtite sa musíme pokúsiť týmto chbám vyhnúť. V dnešnej dobe existuje mnoho dobrých, ale aj zlých hackerov a teda musíme dostatočne zabepečiť softvér proti akémukoľvek vniknutiu a nežiaducemu správaniu.
-
 Chyby v programoch sú dôsledkom ľudského faktora. Vznikajú prehliadnutím, alebo vzájomným nepochopením vo vývojovom tíme počas špecifikácie kódovania a dokumentácie.
+Aktuálne zaznamenávame chyby v rozmedzí od 15 do 65 chýb na 1000 riadkov.
+Tabuľka \ref{table:tab} znázorňuje priemerná počet cháb na 1000 riadkov pre rôzne distribúcie softvérov počas niekoľkých rokov.
+
+\begin{table}[]
+\caption{Priemerný počet chýb na 1000 riadkov v rôznych softvéroch}
+\begin{tabular}{|c|c|c|c|}
+\hline
+Rok  & Softvér   & Počet riadkov [tisíc] & Počet chýb/1000 riadkov \\
+\hline
+2003 & Linux kernel 1.3.13        & 52                  & 32                      \\
+\hline
+2009 & Linux kernel 2.6.29  & 75.5                & 21                      \\
+\hline
+2009 & Linux kernel 2.6.32  & 79                  & 14                      \\
+\hline
+2010 & Linux kernel 2.6.35  & 92.6                & 34                      \\
+\hline
+2012 & Linux kernel 3.6     & 115                 & 25                      \\
+\hline
+2015 & Linux kernel pre-4.2 & 127.5               & 17                       \\
+\hline
+2021 & Linux kernel 5.15    & 150                 & 18                     \\
+\hline
+\end{tabular}
+\label{table:tab}
+\end{table}
 
 \subsection{Ladenie/Debugovanie}
 Nájsť a opraviť chybu, čiže "debugovanie", bola vždy dôležitá časť programovania. So zvyšujúcou sa zložitosťou programov stúpa počet chýb a tiež obtiažnosť ich zachytiť a opraviť. Často sa stáva, že programátori strávia viac času hľadaním a opravovaním chýb, než písaním nového kódu. Softvéroví testeri sú profesionáli, ktorých jedinou úlohou je nájsť a opraviť chyby, alebo napísať kód pre testovanie. Pri niektorých projektoch je viac prostriedkov vynaložených na testovanie ako na vývoj.
 
 Obvykle najťažšia časť ladenia je nájsť chybu v kóde. Akonáhle je odhalená, jej oprava nebýva obvykle problém. Jednou z pomôcok pri debugovaní je tzv. krokovanie programu, pri tomto procese je program prechádzaný po jednotlivých príkazoch pri neustálom sledovaní premenných. Bez tejto možnosti sa používa iný postup, v rôznych častiach programu sú premenné vypisované napr. do konzoly, čo napomáha k lokalizácii chýb.
 
-Avšak aj týmito pomôckami je niekedy lokalizácia chýb umenia, spravidla sa stáva, že chyby v jednej časti programu spôsobia pád v úplne inej časti.
-Niektoré chyby sú spôsobené zlým myslením alebo plánovaním zo strany programátora. Takéto chyby vyžadujú prepísanie časti kódu.
+%Avšak aj týmito pomôckami je niekedy lokalizácia chýb umenia, spravidla sa stáva, že chyby v jednej časti programu spôsobia pád v úplne inej časti. Niektoré chyby sú spôsobené zlým myslením alebo plánovaním zo strany programátora. Takéto chyby vyžadujú prepísanie časti kódu.
 
-Posledným typom chýb sú chyby, ktoré nemajú s kódom nič spoločné. Pokiaľ sa programátor spolieha na dokumentáciu k hardvéru a tá nie je presná, môže byť program napísaný dobre s ohľadom na dokumentáciu ale už nie s ohľadom na skutočný hardvér.
+%Posledným typom chýb sú chyby, ktoré nemajú s kódom nič spoločné. Pokiaľ sa programátor spolieha na dokumentáciu k hardvéru a tá nie je presná, môže byť program napísaný dobre s ohľadom na dokumentáciu ale už nie s ohľadom na skutočný hardvér.
 
-\subsection{Dokumentácia napísaná až za implementáciou}
-Veľa organizácií sa snaží o komplexnú dokumentáciu.
-Uistit sa, že je všetko zdokumentované, ale dokumentácia
-nie je vždy urobená v správnom čase. Problém je v tom, že dokumentácia sa často robí až po napísaní kódu.
-Dokumentácia musí byť vykonaná pred a počas kódovania,
-nikdy potom. Pred začatí implementácie by sme mali začať
-podrobnú špecifikáciu a projektovú dokumentáciu. kedykoľvek je dokument nejednoznačný, najprv ho upravme. Nielenže to zaisťuje, že dokument
-zostáva aktuálny, ale zabezpečuje, že programátor implementuje to, čo dokument špecifikuje.
-Aktualizácia dokumentácie aj počas implementácie
-slúži ako kontrola kódu. Programátori často nachádzajú chyby
-v ich kóde, keď o tom píšu. Napríklad programátor môže napísať: "Po úspechu táto funkcia vráti 1."
-Programátor si potom myslí: „Ak nie je úspech, čo je
-sa vráti?" Pozrie sa na svoj kód a možno si uvedomí, že ten nedostatok, scenár úspechu nebol riadne implementovaný.
+%\subsection{Dokumentácia napísaná až za implementáciou}
+%Veľa organizácií sa snaží o komplexnú dokumentáciu. Uistit sa, že je všetko zdokumentované, ale dokumentácia nie je vždy urobená v správnom čase. Problém je v tom, že dokumentácia sa často robí až po napísaní kódu. Dokumentácia musí byť vykonaná pred a počas kódovania, nikdy potom. Pred začatí implementácie by sme mali začať podrobnú špecifikáciu a projektovú dokumentáciu. kedykoľvek je dokument nejednoznačný, najprv ho upravme. Nielenže to zaisťuje, že dokument zostáva aktuálny, ale zabezpečuje, že programátor implementuje to, čo dokument špecifikuje. Aktualizácia dokumentácie aj počas implementácie slúži ako kontrola kódu. Programátori často nachádzajú chyby v ich kóde, keď o tom píšu. Napríklad programátor môže napísať: "Po úspechu táto funkcia vráti 1." Programátor si potom myslí: „Ak nie je úspech, čo je sa vráti?" Pozrie sa na svoj kód a možno si uvedomí, že ten nedostatok, scenár úspechu nebol riadne implementovaný.
 
 \subsection{Opätovné použitie kódu, ktorý nie je určený na opätovné použitie}
-\cite{25mistakes}
 Kód, ktorý nie je určený na opätovné použitie, nebude vo forme
 abstraktný dátový typ alebo objekt. Kód môže mať vzájomnú závislosť s iným kódom, takže ak sa vezme celý, tam
 je viac kódu, ako je potrebné. Ak sa odoberie len časť, treba ju dôkladne vypreparovať, čím sa zvyšuje riziko nevedomky
@@ -218,16 +254,15 @@ komponentov. Odtiaľ je možné kód znova použiť. Prepísanie tohto modulu za
 Bežná mylná predstava je, že pretože softvér je
 definované v samostatných moduloch, je prirodzene opakovane použiteľné. Toto je
 samostatná chyba a súvisiaca s tvorbou softvéru
-s príliš veľa závislosťami.
+s príliš veľa závislosťami.\cite{25mistakes}
 
 \subsection{Žiadna analýza pamäte}
-\cite{25mistakes}
 Množstvo pamäte vo väčšine vstavaných systémov je obmedzené. Napriek tomu väčšina programátorov netuší, čo je to za pamäť
 dôsledky sú pre akýkoľvek ich dizajn. Keď sú požiadaní koľko pamäte využíva určitý program alebo dátová štruktúra, bežne sa mýlia rádovo.
 V mikrokontroléroch a DSP je významný rozdiel výkon. Môže existovať medzi prístupom k ROM, interná
 RAM a externá RAM. Kombinovaná analýza pamäte a výkonu môže pomôcť pri čo najlepšom využití efektívnej pamäťe umiestnením najpoužívanejších segmentov kódu a dát do najrýchlejšej pamäte. Pridáva sa procesor s vyrovnávacou pamäťou ešte ďalší rozmer výkonu.
 Analýza pamäte je u väčšiny dnešných veľmi jednoduchá pomocou vývojových prostredí. Väčšina prostredí poskytuje mapovací súbor počas fáz kompilácie a prepojenia s použitými pamäťovými údajmi. Kombinovaná analýza pamäte a výkonu je však oveľa náročnejšia, ale určite sa oplatí ak je 
-výkon kritickou zložkou.
+výkon kritickou zložkou.\cite{25mistakes}
 
 
 
@@ -262,19 +297,31 @@ Kód bez testovania nie je spoľahlivý a bráni vývojárom používať ho. Ref
 
 
 \section{Distribúcia a Propagácia softvéru}
-Po ukončení vývojovej a testovacej fázy je nasadzovacia fáza určená na to, aby sa konečný produkt dostal k jeho užívateľovi. To zahŕňa aj dostupnosť včasných aktualizácií softvéru. Dnes je možné softvér nasadiť v živých prostrediach vďaka dostupnosti cloudových služieb, ako sú Microsoft Azure a Amazon Web Services
+Po ukončení vývojovej a testovacej fázy je nasadzovacia fáza určená na to, aby sa konečný produkt dostal k jeho užívateľovi. To zahŕňa aj dostupnosť včasných aktualizácií softvéru. Dnes je možné softvér nasadiť v živých prostrediach vďaka dostupnosti cloudových služieb, ako sú Microsoft Azure a Amazon Web Services.
 
-Okrem toho vývojové spoločnosti používajú viacero modelov na prácu na projekte vývoja softvéru. Tieto modely sú užitočné, aby ste sa vyhli chybám vývojárov softvéru. Tieto modely sa vyberajú na základe počiatočného prieskumu požiadaviek, ako je uvedené vyššie. Waterfall, Agile a Spiral sú niektoré z najpoužívanejších modelov v procese vývoja softvéru.
+%Okrem toho vývojové spoločnosti používajú viacero modelov na prácu na projekte vývoja softvéru. Tieto modely sú užitočné, aby ste sa vyhli chybám vývojárov softvéru. Tieto modely sa vyberajú na základe počiatočného prieskumu požiadaviek, ako je uvedené vyššie. Waterfall, Agile a Spiral sú niektoré z najpoužívanejších modelov v procese vývoja softvéru.
 
-Nemať životný cyklus vývoja softvéru je ako snažiť sa dostať do cieľa bez použitia akejkoľvek mapy. SDLC pomáha pri znižovaní nepotrebných akcií, čo zase pomáha znižovať náklady a čas potrebný na vývoj. Pri dodržaní úplného kontrolného zoznamu zaistíte, že v programe nechýbajú žiadne prvky.
-
-
+%Nemať životný cyklus vývoja softvéru je ako snažiť sa dostať do cieľa bez použitia akejkoľvek mapy. SDLC pomáha pri znižovaní nepotrebných akcií, čo zase pomáha znižovať náklady a čas potrebný na vývoj. Pri dodržaní úplného kontrolného zoznamu zaistíte, že v programe nechýbajú žiadne prvky.
 
 
 
 
 
 
+
+
+
+
+\paragraph{Spoločenské súvislosti}
+Táto prednáška bola veľmi zaujímavá. Odohrala sa s dekanom fakulty, čož bola pre mňa osobne sama o sebe dosť vzrušujúca udalosť. Pán dekan nám ponúkol možnosť opýtať sa na rôzne události, ktoré sa stali na tejto fakulte a bol ochotný zareagovať v podstate na všetky naše otázky. IT sféra sama o sebe je veľmi rozliahlá. Uvedenie tejto témy ma fascinovalo a začal som premýšľať o svojej budúcnosti v IT. Aktuálne stále nie som rozhodnutý, čo presne ma najviac zaujalo, však minimálne som si upresnil niektoré podstatné rozhodovacie faktory a verím, že celá táto prednáška mi bola nie len nápomocná ale aj veľmi zaujímavá.
+
+\paragraph{Historické súvislosti}
+Táto prednáška mi dala mnoho nových informácií. Boli to hlavne historické informácie o veľmi zaujímavých ľudoch, ktorých si celý svet bude ešte dlhu dobu pamätať. To všetko čo dokázali si určite budeme vážiť a pamätať ešte dlhú dobu. Za skutočne krátku dobu dokázali posunúť ich výckum, prácu na nový level a rozšíriť svoje meno po celom svete. Bola to skutočne zaujímava prednáška, na ktorej som sa dozvedel množstvo nových vecí a takmer určite by som ocenil aj ďalšie podobné prednášky o inováciach či známych objavov v minulosti.
+
+\paragraph{Technológia a ľudia}
+
+
+\paragraph{Udržateľnosť a etika}
 
 
 
@@ -284,11 +331,12 @@ Nemať životný cyklus vývoja softvéru je ako snažiť sa dostať do cieľa b
 
 
 \section{Záver}
-Vývoj softvéru je dlhý proces a chyby sa môžu pri malej nedbanlivosti kedykoľvek vkradnúť. Počas prvých dní vývoja sú vyššie uvedené chyby medzi vývojármi najčastejšie. Niekedy, keď sú chyby identifikované v druhej časti životného cyklu vývoja softvéru, sú pre podniky veľmi nákladné. Skúsení vývojári alebo etablované vývojárske spoločnosti vedia, ako sa s týmito problémami vysporiadať a svoj proces majú vybudovaný tak, aby zabezpečili kvalitnú prácu s minimálnou alebo žiadnou stratou. Tieto začiatočnícke programátorské chyby sa dajú ľahko identifikovať, keď máte niekoho skúseného v projekte.
+Vývoj softvéru je dlhý proces a chyby sa môžu pri malej nedbanlivosti kedykoľvek vkradnúť. Počas prvých dní vývoja sú vyššie uvedené chyby medzi vývojármi najčastejšie. Niekedy, keď sú chyby identifikované v pokročilejších častiach životného cyklu vývoja softvéru, sú pre podniky veľmi nákladné. Skúsení vývojári alebo etablované vývojárske spoločnosti vedia, ako sa s týmito problémami vysporiadať a svoj proces majú vybudovaný tak, aby zabezpečili kvalitnú prácu s minimálnou alebo žiadnou stratou. Tieto začiatočnícke programátorské chyby sa dajú ľahko identifikovať, keď máte niekoho skúseného v projekte.
 
-Identifikácia problémov a úprava v správnom čase môže ušetriť obrovský čas a zdroje pre podnikanie. Každý krok alebo stupeň v SDLC má rôzne výstupy, ktoré možno testovať podľa dokumentu špecifikácie požiadaviek. Tento jediný krok zastaví akúkoľvek chybu, ktorá sa rozšíri až do konca a pokazí celý produkt. Existuje mnoho ďalších metód na odstránenie chýb vo vývojovej časti.
+Identifikácia problémov a úprava v správnom čase môže ušetriť obrovské množstvo času a zdrojov určených pre podnikanie.
+%Každý krok alebo stupeň v SDLC má rôzne výstupy, ktoré možno testovať podľa dokumentu špecifikácie požiadaviek. Tento jediný krok zastaví akúkoľvek chybu, ktorá sa rozšíri až do konca a pokazí celý produkt. Existuje mnoho ďalších metód na odstránenie chýb vo vývojovej časti.
 
-Pri dôležitých projektoch by sa týmto chybám malo za každú cenu vyhnúť. Tieto bežné chyby pri vývoji softvéru sú často najhoršími programátorskými chybami pre podniky, pretože vedú k obrovským stratám. Ako obchodná spoločnosť je najlepším krokom konzultácia s odborníkom na projekt a najatie softvérovej spoločnosti s dobrým portfóliom projektov. Tieto IT spoločnosti majú dobré skúsenosti s riešením bežných problémov a dodávaním rozsiahlych projektov v časovom rámci. Consulting Whiz je jednou z takýchto spoločností na vývoj softvéru v USA. Spoločnosť Consulting Whiz, ktorá pracuje viac ako 12 rokov, umožnila značkám zvýšiť svoje príjmy pomocou bezchybných služieb vývoja softvéru. Ich portfólio má niektoré z projektov, ktoré sú dnes úžasne úspešné.
+%Pri dôležitých projektoch by sa týmto chybám malo za každú cenu vyhnúť. Tieto bežné chyby pri vývoji softvéru sú často najhoršími programátorskými chybami pre podniky, pretože vedú k obrovským stratám. Ako obchodná spoločnosť je najlepším krokom konzultácia s odborníkom na projekt a najatie softvérovej spoločnosti s dobrým portfóliom projektov. Tieto IT spoločnosti majú dobré skúsenosti s riešením bežných problémov a dodávaním rozsiahlych projektov v časovom rámci. Consulting Whiz je jednou z takýchto spoločností na vývoj softvéru v USA. Spoločnosť Consulting Whiz, ktorá pracuje viac ako 12 rokov, umožnila značkám zvýšiť svoje príjmy pomocou bezchybných služieb vývoja softvéru. Ich portfólio má niektoré z projektov, ktoré sú dnes úžasne úspešné.
 
 
 
