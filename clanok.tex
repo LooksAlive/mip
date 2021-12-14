@@ -10,8 +10,8 @@
 \usepackage{url} % príkaz \url na formátovanie URL
 \usepackage{hyperref} % odkazy v texte budú aktívne (pri niektorých triedach dokumentov spôsobuje posun textu)
 \usepackage{graphicx}
-\usepackage{pdfpages}
-\usepackage{csvsimple}
+%\usepackage{pdfpages}
+%\usepackage{csvsimple}
 \DeclareGraphicsExtensions{.png}
 
 \usepackage{cite}
@@ -42,7 +42,7 @@ V tomto článku sa budeme zaoberať najčastejšími chybami, ktoré môžu nas
 
 
 \section{Úvod}
-Každý plán vývoja softvéru je navrhnutý s ohľadom na finančné a časové obmedzenia dostupné pre zainteresované strany. Pravidelný výskyt chýb však môže viesť k zbytočným prieťahom v pláne. To môže spôsobiť nadmerné finančné zaťaženie a v najhoršom prípade odmietnutie produktu. Preto si vývojový tím musí byť vedomý bežných chýb, ktoré sa môžu počas procesu stať. Tu uvádzame niektoré bežné chyby, ktorým je potrebné sa vyhnúť, aby mohol pokračovať správny životný cyklus vývoja softvéru.% Opíšeme všetky fázy cyklu softvéru a zdôrazníme časté chyby, ktoré sa tam často vyskytujú.  
+Každý plán vývoja softvéru je navrhnutý s ohľadom na finančné a časové obmedzenia dostupné pre zainteresované strany. Pravidelný výskyt chýb však môže viesť k zbytočným prieťahom v pláne. To môže spôsobiť nadmerné finančné zaťaženie a v najhoršom prípade odmietnutie produktu. Preto si vývojový tím musí byť vedomý bežných chýb, ktoré sa môžu počas procesu stať. Tu uvádzame niektoré bežné chyby, ktorým je potrebné sa vyhnúť, aby mohol pokračovať správny životný cyklus vývoja softvéru. % Opíšeme všetky fázy cyklu softvéru a zdôrazníme časté chyby, ktoré sa tam často vyskytujú.  
 Diagram \ref{fig:D1} opisuje životný cyklus sú vyzačené fázy, v ktorých sa najčastejšie vyskytujú chyby.
 \begin{figure}[h]
     \centering
@@ -130,7 +130,7 @@ Zmätok ohľadom rozdelenia povinností je to posledné, čo by si každý vývo
 
 
 
-
+%\pagebreak
 
 \section{Návrh architektúri}
 Architektúra programu je štruktúra, ktorá definuje vzťah medzi rôznymi prvkami. Toto zahŕňa
@@ -176,6 +176,7 @@ V každom prípade však vývoj softvéru prechádza vždy viac-menej rovnakými
 analýza a špecifikácia požiadaviek, návrh, implementácia a testovanie, integrácia, údržba.
 Vývoj je podporovaný aktivitami, ako sú: riadenie projektu, zabezpeovanie kvality, správa
 konfigurácií a riadenie zmien.\cite{VyvojProces3}
+
 Vývojová fáza si vyžaduje intenzívne testovanie jednotiek v každej fáze, aby sa zabezpečilo, že akákoľvek chyba alebo chyba bude zachytená už na začiatku. Okrem toho sa najväčšia pozornosť venuje komunikácii medzi rôznymi oddeleniami tímu vývoja softvéru, ako aj zainteresovanými stranami.
 
 \subsection{Komunikácia nie je jasná}
@@ -206,7 +207,7 @@ Preskočenie alebo unáhlenie procesu testovania je teda z dlhodobého hľadiska
 Programátorská chyba je druh softvérovej chyby, ktorú urobil programátor pri vytváraní počítačového programu. Programátorskú chybu, ktorá v softvéri spôsobí bezpečnostný problém, označujeme ako zraniteľnosť. Program využívajúci zraniteľnosť je exploit. V realtite sa musíme pokúsiť týmto chbám vyhnúť. V dnešnej dobe existuje mnoho dobrých, ale aj zlých hackerov a teda musíme dostatočne zabepečiť softvér proti akémukoľvek vniknutiu a nežiaducemu správaniu.
 Chyby v programoch sú dôsledkom ľudského faktora. Vznikajú prehliadnutím, alebo vzájomným nepochopením vo vývojovom tíme počas špecifikácie kódovania a dokumentácie.
 Aktuálne zaznamenávame chyby v rozmedzí od 15 do 65 chýb na 1000 riadkov.
-Tabuľka \ref{table:tab} znázorňuje priemerná počet cháb na 1000 riadkov pre rôzne distribúcie softvérov počas niekoľkých rokov.
+Tabuľka \ref{table:tab} znázorňuje priemerný počet chýb na 1000 riadkov pre rôzne distribúcie softvérov počas niekoľkých rokov.
 
 \begin{table}[]
 \caption{Priemerný počet chýb na 1000 riadkov v rôznych softvéroch}
@@ -312,24 +313,6 @@ Po ukončení vývojovej a testovacej fázy je nasadzovacia fáza určená na to
 
 
 
-\paragraph{Spoločenské súvislosti}
-Táto prednáška bola veľmi zaujímavá. Odohrala sa s dekanom fakulty, čož bola pre mňa osobne sama o sebe dosť vzrušujúca udalosť. Pán dekan nám ponúkol možnosť opýtať sa na rôzne události, ktoré sa stali na tejto fakulte a bol ochotný zareagovať v podstate na všetky naše otázky. IT sféra sama o sebe je veľmi rozliahlá. Uvedenie tejto témy ma fascinovalo a začal som premýšľať o svojej budúcnosti v IT. Aktuálne stále nie som rozhodnutý, čo presne ma najviac zaujalo, však minimálne som si upresnil niektoré podstatné rozhodovacie faktory a verím, že celá táto prednáška mi bola nie len nápomocná ale aj veľmi zaujímavá.
-
-\paragraph{Historické súvislosti}
-Táto prednáška mi dala mnoho nových informácií. Boli to hlavne historické informácie o veľmi zaujímavých ľudoch, ktorých si celý svet bude ešte dlhu dobu pamätať. To všetko čo dokázali si určite budeme vážiť a pamätať ešte dlhú dobu. Za skutočne krátku dobu dokázali posunúť ich výckum, prácu na nový level a rozšíriť svoje meno po celom svete. Bola to skutočne zaujímava prednáška, na ktorej som sa dozvedel množstvo nových vecí a takmer určite by som ocenil aj ďalšie podobné prednášky o inováciach či známych objavov v minulosti.
-
-\paragraph{Technológia a ľudia}
-
-
-\paragraph{Udržateľnosť a etika}
-
-
-
-
-
-
-
-
 \section{Záver}
 Vývoj softvéru je dlhý proces a chyby sa môžu pri malej nedbanlivosti kedykoľvek vkradnúť. Počas prvých dní vývoja sú vyššie uvedené chyby medzi vývojármi najčastejšie. Niekedy, keď sú chyby identifikované v pokročilejších častiach životného cyklu vývoja softvéru, sú pre podniky veľmi nákladné. Skúsení vývojári alebo etablované vývojárske spoločnosti vedia, ako sa s týmito problémami vysporiadať a svoj proces majú vybudovaný tak, aby zabezpečili kvalitnú prácu s minimálnou alebo žiadnou stratou. Tieto začiatočnícke programátorské chyby sa dajú ľahko identifikovať, keď máte niekoho skúseného v projekte.
 
@@ -337,6 +320,33 @@ Identifikácia problémov a úprava v správnom čase môže ušetriť obrovské
 %Každý krok alebo stupeň v SDLC má rôzne výstupy, ktoré možno testovať podľa dokumentu špecifikácie požiadaviek. Tento jediný krok zastaví akúkoľvek chybu, ktorá sa rozšíri až do konca a pokazí celý produkt. Existuje mnoho ďalších metód na odstránenie chýb vo vývojovej časti.
 
 %Pri dôležitých projektoch by sa týmto chybám malo za každú cenu vyhnúť. Tieto bežné chyby pri vývoji softvéru sú často najhoršími programátorskými chybami pre podniky, pretože vedú k obrovským stratám. Ako obchodná spoločnosť je najlepším krokom konzultácia s odborníkom na projekt a najatie softvérovej spoločnosti s dobrým portfóliom projektov. Tieto IT spoločnosti majú dobré skúsenosti s riešením bežných problémov a dodávaním rozsiahlych projektov v časovom rámci. Consulting Whiz je jednou z takýchto spoločností na vývoj softvéru v USA. Spoločnosť Consulting Whiz, ktorá pracuje viac ako 12 rokov, umožnila značkám zvýšiť svoje príjmy pomocou bezchybných služieb vývoja softvéru. Ich portfólio má niektoré z projektov, ktoré sú dnes úžasne úspešné.
+
+
+
+
+
+
+
+
+\paragraph{Spoločenské súvislosti}
+Táto prednáška bola veľmi zaujímavá. Odohrala sa s dekanom fakulty, čož bola pre mňa osobne sama o sebe dosť vzrušujúca udalosť. Pán dekan nám ponúkol možnosť opýtať sa na rôzne události, ktoré sa stali na tejto fakulte a bol ochotný zareagovať v podstate na všetky naše otázky. IT sféra sama o sebe je veľmi rozliahlá. Uvedenie tejto témy ma fascinovalo a začal som premýšľať o svojej budúcnosti v IT. Aktuálne stále nie som rozhodnutý, čo presne ma najviac zaujalo, však minimálne som si upresnil niektoré podstatné rozhodovacie faktory a verím, že celá táto prednáška bola pre mňa osobne nápomocná ale aj veľmi zaujímavá.
+
+\paragraph{Historické súvislosti}
+Prednáška o týchto statočných inžinieroch mi dala mnoho nových informácií. Boli to hlavne historické informácie o veľmi zaujímavých ľudoch, ktorých si celý svet bude ešte dlhu dobu pamätať. To všetko čo dokázali si určite budeme vážiť a pamätať ešte dlhú dobu. Za skutočne krátku dobu dokázali posunúť ich výskum či prácu na nový level a rozšíriť svoje meno po celom svete. Bola to skutočne zaujímava prednáška, na ktorej som sa dozvedel množstvo nových vecí a takmer určite by som ocenil aj ďalšie podobné prednášky o inováciach či známych objavov v minulosti.
+
+\paragraph{Technológia a ľudia}
+V poslednej dobe sa technológia po celom svete vyvýja exponenciálnou rýchlosťou. Takťiež v značnej miere ovplivňuje ľudí. Každý na to má vlastný názor, ale je to k lepšiemu alebo horšiemu? Popravde na túto rečnickú otázku nemôžem odpovedať jednostranne. V mnohých prípadoch by každý odpovedal k lepšiemu, avšak nájdu sa aj takí jedinci, ktorý si všímajú aj negatívne stránky. Či už to sú nároky na okolie, prírodu alebo rovno na ľudí. Podľa môjho názoru dnešné technológie uľahčujú až príliš mnoho vecí a som skutočne zvedavý ako to bude za pár rokov.
+
+\paragraph{Udržateľnosť a etika}
+Etické spôsoby ako aj udržateľný prístup by mali byť základnými elementami každéhojedinca v našej spoločnosti. Etický kódex je pojem, ktorý myslím každý pozná už od základnej školy. Poukazuje na to čo je správne, či v niektorých prípadoch nevyhnutné spraviť/ako sa chovať. Ku príkladu dosť spomínané plagiatorstvo je častým porušením etiky a taktiež dosť prísne trestané. Udržateľnosť na druhú stranu je podľa mňa skôr elementom povahy a orientovaná samotným cieľom jedincov. Nakoniec podľa môjho nározu môže každý za to čo robí a taktiež má vlastné povahové rysy, ktoré sa tak často nemenia, práve naopak, môžu eskalovať.
+
+
+
+
+
+
+
+
 
 
 
